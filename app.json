@@ -2,7 +2,6 @@
   "expo": {
     "name": "plantly",
     "slug": "plantly",
-    "main": "expo-router/entry",
     "scheme": "plantly",
     "version": "1.0.0",
     "orientation": "portrait",
