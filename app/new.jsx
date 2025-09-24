@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Alert, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import { theme } from "@/theme";
 import { useState } from "react";
 import { PlantlyImage } from "@/components/PlantlyImage";
@@ -33,30 +40,29 @@ export default function NewScreen() {
     console.log("Adding a plant", name, days);
   };
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
       <View style={styles.centered}>
-        <View style={styles.imageContainer}>
-          <PlantlyImage />
-        </View>
-        <View style={styles.formContainer}>
-          <Text style={styles.label}>Name</Text>
-          <TextInput
-            placeholder="E.g. Casper the Cactus"
-            value={name}
-            onChangeText={setName}
-            style={styles.input}
-          />
-          <Text style={styles.label}>Watering Frequency (every x days)</Text>
-          <TextInput
-            placeholder="E.g. 6"
-            value={days}
-            onChangeText={setDays}
-            style={styles.input}
-          ></TextInput>
-          <PlantlyButton title={"Add plant"} onPress={handleSubmit} />
-        </View>
+        <PlantlyImage />
       </View>
-    </View>
+      <Text style={styles.label}>Name</Text>
+      <TextInput
+        placeholder="E.g. Casper the Cactus"
+        value={name}
+        onChangeText={setName}
+        style={styles.input}
+      />
+      <Text style={styles.label}>Watering Frequency (every x days)</Text>
+      <TextInput
+        placeholder="E.g. 6"
+        value={days}
+        onChangeText={setDays}
+        style={styles.input}
+      ></TextInput>
+      <PlantlyButton title={"Add plant"} onPress={handleSubmit} />
+    </ScrollView>
   );
 }
 
@@ -64,10 +70,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colorWhite,
-    justifyContent: "center",
-    alignItems: "center",
   },
-  formContainer: {
+  contentContainer: {
     paddingTop: 24,
     paddingHorizontal: 24,
     paddingBottom: 100,
@@ -86,5 +90,6 @@ const styles = StyleSheet.create({
   },
   centered: {
     alignItems: "center",
+    flex: 1,
   },
 });
