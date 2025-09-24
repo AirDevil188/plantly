@@ -1,13 +1,24 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import * as FileSystem from "expo-file-system/legacy";
 
 export const usePlantStore = create(
   persist(
     (set) => ({
       plants: [],
       nextId: 1,
-      addPlant: (name, wateringFrequencyDays) => {
+      addPlant: async (name, wateringFrequencyDays, imageUri) => {
+        const savedImageUri =
+          FileSystem.documentDirectory +
+          `${new Date().getTime()}-${imageUri?.split("/").slice(-1)[0]}`;
+
+        if (imageUri) {
+          await FileSystem.copyAsync({
+            from: imageUri,
+            to: savedImageUri,
+          });
+        }
         return set((state) => {
           return {
             ...state,
@@ -17,6 +28,7 @@ export const usePlantStore = create(
                 id: String(state.nextId),
                 name,
                 wateringFrequencyDays,
+                imageUri: imageUri ? imageUri : null,
               },
               ...state.plants,
             ],
