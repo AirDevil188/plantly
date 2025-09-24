@@ -4,10 +4,14 @@ import { theme } from "@/theme";
 import { useState } from "react";
 import { PlantlyImage } from "@/components/PlantlyImage";
 import { PlantlyButton } from "@/components/PlantlyButton";
+import { usePlantStore } from "@/store/plantsStore";
+import { useRouter } from "expo-router";
 
 export default function NewScreen() {
   const [name, setName] = useState("");
   const [days, setDays] = useState("");
+  const addPlant = usePlantStore((state) => state.addPlant);
+  const router = useRouter();
 
   const handleSubmit = () => {
     if (!name) {
@@ -31,7 +35,8 @@ export default function NewScreen() {
       );
     }
 
-    console.log("Adding a plant", name, days);
+    addPlant(name, Number(days));
+    router.replace("/");
   };
   return (
     <KeyboardAwareScrollView
