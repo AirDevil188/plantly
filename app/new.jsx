@@ -1,11 +1,5 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  TextInput,
-  ScrollView,
-} from "react-native";
+import { View, Text, StyleSheet, Alert, TextInput } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { theme } from "@/theme";
 import { useState } from "react";
 import { PlantlyImage } from "@/components/PlantlyImage";
@@ -40,7 +34,7 @@ export default function NewScreen() {
     console.log("Adding a plant", name, days);
   };
   return (
-    <ScrollView
+    <KeyboardAwareScrollView
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
@@ -62,7 +56,7 @@ export default function NewScreen() {
         style={styles.input}
       ></TextInput>
       <PlantlyButton title={"Add plant"} onPress={handleSubmit} />
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 }
 
