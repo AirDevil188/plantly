@@ -17,7 +17,7 @@ import { useRouter } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 
 export default function NewScreen() {
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUri, setImageUri] = useState(undefined);
   const [name, setName] = useState("");
   const [days, setDays] = useState("");
   const addPlant = usePlantStore((state) => state.addPlant);
@@ -45,7 +45,7 @@ export default function NewScreen() {
       );
     }
 
-    addPlant(name, Number(days));
+    addPlant(name, Number(days), imageUri);
     router.replace("/");
   };
 
@@ -61,7 +61,7 @@ export default function NewScreen() {
     });
 
     if (!result.canceled) {
-      setImageUrl(result.assets[0].uri);
+      setImageUri(result.assets[0].uri);
     }
   };
   return (
@@ -74,7 +74,7 @@ export default function NewScreen() {
         activeOpacity={0.8}
         onPress={handleChooseImage}
       >
-        <PlantlyImage imageUrl={imageUrl} />
+        <PlantlyImage imageUri={imageUri} />
       </TouchableOpacity>
 
       <Text style={styles.label}>Name</Text>
