@@ -5,7 +5,7 @@ import { PlantlyImage } from "./PlantlyImage";
 export function PlantCard({ plant }) {
   return (
     <View style={styles.plantCard}>
-      <PlantlyImage size={100} />
+      <PlantlyImage size={100} imageUrl={plant.imageUrl} />
       <View style={styles.details}>
         <Text numberOfLines={1} style={styles.plantName}>
           {plant.name}

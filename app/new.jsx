@@ -1,4 +1,12 @@
-import { View, Text, StyleSheet, Alert, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  TextInput,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { theme } from "@/theme";
 import { useState } from "react";
@@ -6,8 +14,10 @@ import { PlantlyImage } from "@/components/PlantlyImage";
 import { PlantlyButton } from "@/components/PlantlyButton";
 import { usePlantStore } from "@/store/plantsStore";
 import { useRouter } from "expo-router";
+import * as ImagePicker from "expo-image-picker";
 
 export default function NewScreen() {
+  const [imageUrl, setImageUrl] = useState(null);
   const [name, setName] = useState("");
   const [days, setDays] = useState("");
   const addPlant = usePlantStore((state) => state.addPlant);
@@ -38,14 +48,35 @@ export default function NewScreen() {
     addPlant(name, Number(days));
     router.replace("/");
   };
+
+  const handleChooseImage = async () => {
+    if (Platform.OS === "web") {
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImageUrl(result.assets[0].uri);
+    }
+  };
   return (
     <KeyboardAwareScrollView
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
-      <View style={styles.centered}>
-        <PlantlyImage />
-      </View>
+      <TouchableOpacity
+        style={styles.centered}
+        activeOpacity={0.8}
+        onPress={handleChooseImage}
+      >
+        <PlantlyImage imageUrl={imageUrl} />
+      </TouchableOpacity>
+
       <Text style={styles.label}>Name</Text>
       <TextInput
         placeholder="E.g. Casper the Cactus"
@@ -89,6 +120,6 @@ const styles = StyleSheet.create({
   },
   centered: {
     alignItems: "center",
-    flex: 1,
+    marginBottom: 24,
   },
 });
