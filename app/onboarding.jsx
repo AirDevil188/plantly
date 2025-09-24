@@ -22,8 +22,12 @@ export default function OnboardingScreen() {
       style={styles.container}
     >
       <StatusBar style="light" />
-      <Text style={styles.heading}>Plantly</Text>
-      <Text style={styles.tagLine}>Keep your plants healthy and hydrated</Text>
+      <View>
+        <Text style={styles.heading}>Plantly</Text>
+        <Text style={styles.tagLine}>
+          Keep your plants healthy and hydrated
+        </Text>
+      </View>
       <PlantlyImage />
       <PlantlyButton title="Let me in" onPress={handlePress} />
     </LinearGradient>
@@ -33,12 +37,13 @@ export default function OnboardingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
     backgroundColor: theme.colorWhite,
   },
 
   heading: {
+    textAlign: "center",
     fontSize: 42,
     color: theme.colorWhite,
     fontWeight: "bold",
