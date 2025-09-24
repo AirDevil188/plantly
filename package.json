@@ -26,9 +26,12 @@
   },
   "private": true,
   "devDependencies": {
+    "@eslint/compat": "^1.4.0",
     "eslint": "^9.0.0",
     "eslint-config-expo": "~10.0.0",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react-native": "^5.0.0",
     "prettier": "^3.6.2"
